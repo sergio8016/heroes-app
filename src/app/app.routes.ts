@@ -1,4 +1,5 @@
 import {Routes} from '@angular/router';
+import {LayoutComponent} from "./pages/heroes/pages/layout/layout.component";
 
 export const routes: Routes = [
   {
@@ -8,17 +9,18 @@ export const routes: Routes = [
   },
   {
     path: 'heroes',
+    component: LayoutComponent, // This is need to have a second router-outlet different to the login/register pages.
     children: [
-      {
-        path: '',
-        loadComponent: () => import('./pages/heroes/pages/layout/layout.component').then(m => m.LayoutComponent)
-      },
       {
         path: 'hero',
         loadComponent: () => import('./pages/heroes/pages/hero/hero.component').then(m => m.HeroComponent)
       },
       {
         path: 'new',
+        loadComponent: () => import('./pages/heroes/pages/new/new.component').then(m => m.NewComponent)
+      },
+      {
+        path: 'edit/:id',
         loadComponent: () => import('./pages/heroes/pages/new/new.component').then(m => m.NewComponent)
       },
       {
@@ -29,15 +31,34 @@ export const routes: Routes = [
         path: 'search',
         loadComponent: () => import('./pages/heroes/pages/search/search.component').then(m => m.SearchComponent)
       },
+      {
+        path: ':id',
+        loadComponent: () => import('./pages/heroes/pages/hero/hero.component').then(m => m.HeroComponent)
+      },
+      {path: '**', redirectTo: 'list'}
     ]
   },
   {
-    path: 'login',
-    loadComponent: () => import('./pages/auth/login/login.component').then(m => m.LoginComponent)
-  },
-  {
-    path: 'register',
-    loadComponent: () => import('./pages/auth/register/register.component').then(m => m.RegisterComponent)
+    path: 'auth',
+    children: [
+      {
+        path: '',
+        redirectTo: 'register',
+        pathMatch: 'full'
+      },
+      {
+        path: 'login',
+        loadComponent: () => import('./pages/auth/login/login.component').then(m => m.LoginComponent)
+      },
+      {
+        path: 'register',
+        loadComponent: () => import('./pages/auth/register/register.component').then(m => m.RegisterComponent)
+      },
+      {
+        path: '**',
+        redirectTo: 'register'
+      }
+    ]
   },
   {
     path: '**',
