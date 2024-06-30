@@ -1,5 +1,6 @@
 import {Routes} from '@angular/router';
 import {LayoutComponent} from "./pages/heroes/pages/layout/layout.component";
+import {LayoutComponent as authLayoutComponent} from "./pages/auth/layout/layout.component";
 
 export const routes: Routes = [
   {
@@ -40,12 +41,8 @@ export const routes: Routes = [
   },
   {
     path: 'auth',
+    component: authLayoutComponent,
     children: [
-      {
-        path: '',
-        redirectTo: 'register',
-        pathMatch: 'full'
-      },
       {
         path: 'login',
         loadComponent: () => import('./pages/auth/login/login.component').then(m => m.LoginComponent)
