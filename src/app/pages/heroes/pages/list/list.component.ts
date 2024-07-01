@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
+import {HeroesService} from "../../../../services/heroes.service";
+import {Result} from "../../../../interfaces/hero.interface";
 
 @Component({
   selector: 'app-list',
@@ -7,6 +9,16 @@ import { Component } from '@angular/core';
   templateUrl: './list.component.html',
   styleUrl: './list.component.css'
 })
-export class ListComponent {
+export class ListComponent implements OnInit {
+  private heroesService: HeroesService = inject(HeroesService);
+  public heroes: Result[] = [];
 
+  ngOnInit(): void {
+    this.getHeroes();
+  }
+
+  getHeroes() {
+    this.heroesService.getHeroes()
+      .subscribe((results: Result[]) => this.heroes = results);
+  }
 }
