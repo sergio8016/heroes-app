@@ -20,5 +20,12 @@ export class HeroesService {
         map((response: MarvelApiResponse) => response.data.results)
       );
   }
+
+  getHeroById(id: string): Observable<Result> {
+    return this.httpClient.get<MarvelApiResponse>(`${this.url}/${id}?apikey=${environments.apiKey}`)
+      .pipe(
+        map((response: MarvelApiResponse) => response.data.results[0])
+      )
+  }
 }
 
