@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environments} from "../../environments/environments";
-import {map, Observable} from "rxjs";
+import {catchError, map, Observable, of} from "rxjs";
 import {MarvelApiResponse, Result} from "../interfaces/hero.interface";
 
 @Injectable({
@@ -26,6 +26,14 @@ export class HeroesService {
       .pipe(
         map((response: MarvelApiResponse) => response.data.results[0])
       )
+  }
+
+  getSuggestions(query: string): Observable<Result[]> {
+    return this.httpClient.get<MarvelApiResponse>(`${this.url}?apikey=${environments.apiKey}&nameStartsWith=${query}&limit=100`)
+      .pipe(
+        map((response: MarvelApiResponse) => response.data.results),
+        catchError(() => of([]))
+      );
   }
 }
 

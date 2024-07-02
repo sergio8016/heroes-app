@@ -12,6 +12,7 @@ import {MatTree, MatTreeNode, MatTreeNodeDef, MatTreeNodePadding} from "@angular
 import {FlatTreeControl} from "@angular/cdk/tree";
 import {MatChip, MatChipSet} from "@angular/material/chips";
 import {MatButton} from "@angular/material/button";
+import {MatIcon} from "@angular/material/icon";
 
 interface FlatNode {
   expandable: boolean;
@@ -41,7 +42,8 @@ interface FlatNode {
     MatChipSet,
     MatChip,
     MatButton,
-    RouterLink
+    RouterLink,
+    MatIcon
   ],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.css'
