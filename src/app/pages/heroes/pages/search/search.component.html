@@ -20,3 +20,9 @@
     </mat-option>
   </mat-autocomplete>
 </div>
+
+<div class="grid">
+  <div class="col-12 md:col-3">
+    <app-card [hero]="selectedHero" *ngIf="selectedHero"></app-card>
+  </div>
+</div>

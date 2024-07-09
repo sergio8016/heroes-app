@@ -5,6 +5,8 @@ import {MatButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {Router, RouterLink} from "@angular/router";
 import {TitleCasePipe} from "@angular/common";
+import {AuthService} from "../../../services/auth.service";
+import {UserInterface} from "../../../interfaces/user.interface";
 
 @Component({
   selector: 'app-login',
@@ -23,7 +25,12 @@ import {TitleCasePipe} from "@angular/common";
 })
 export class LoginComponent {
   router: Router = inject(Router);
+  auth: AuthService = inject(AuthService);
+
   login() {
-    this.router.navigateByUrl('heroes')
+    this.auth.login('default.hero@heroesapp.com', '12345678')
+      .subscribe((user: UserInterface | undefined) => {
+        this.router.navigateByUrl('heroes')
+      })
   }
 }

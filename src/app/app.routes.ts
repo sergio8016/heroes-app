@@ -17,14 +17,6 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/heroes/pages/hero/hero.component').then(m => m.HeroComponent)
       },
       {
-        path: 'new',
-        loadComponent: () => import('./pages/heroes/pages/new/new.component').then(m => m.NewComponent)
-      },
-      {
-        path: 'edit/:id',
-        loadComponent: () => import('./pages/heroes/pages/new/new.component').then(m => m.NewComponent)
-      },
-      {
         path: 'list',
         loadComponent: () => import('./pages/heroes/pages/list/list.component').then(m => m.ListComponent)
       },

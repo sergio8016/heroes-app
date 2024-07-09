@@ -11,6 +11,8 @@ import {
   MatOption
 } from "@angular/material/autocomplete";
 import {NgForOf, NgIf} from "@angular/common";
+import {CardComponent} from "../../components/card/card.component";
+import {debounceTime} from "rxjs";
 
 @Component({
   selector: 'app-search',
@@ -24,7 +26,8 @@ import {NgForOf, NgIf} from "@angular/common";
     MatOption,
     MatAutocompleteTrigger,
     NgForOf,
-    NgIf
+    NgIf,
+    CardComponent
   ],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
@@ -38,8 +41,10 @@ export class SearchComponent {
   searchHero(): void {
     const value: string = this.searchInput.value || '';
     this.heroesService.getSuggestions(value)
+      .pipe(
+        debounceTime(300)
+      )
       .subscribe((heroes: Result[]): void => {
-        console.log(heroes)
         this.heroes = heroes
       })
   }
